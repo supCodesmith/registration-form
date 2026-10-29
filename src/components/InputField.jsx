@@ -1,16 +1,9 @@
-
-function InputField({ label, type, name, placeholder }) {
+function InputField({ label, type, id, name, placeholder }) {
   return (
-    <>
-      <label htmlFor={name}>{label}</label>
-
-      <input
-        type={type}
-        id={name}
-        name={name}
-        placeholder={placeholder}
-      />
-    </>
+    <div className="form-group">
+      <label htmlFor={id}>{label}</label>
+      <input type={type} id={id} name={name} placeholder={placeholder} />
+    </div>
   );
 }
 

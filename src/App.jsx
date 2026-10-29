@@ -1,4 +1,6 @@
 
+import InputField from "./components/InputField";
+
 function App() {
   return (
     <div className="form-container">
@@ -6,43 +8,37 @@ function App() {
       <p>Fill in your details to register.</p>
 
       <form>
-        <div className="form-group">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            placeholder="Enter your name"
-          />
-        </div>
+        <InputField
+          label="Name"
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Enter your name"
+        />
 
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Enter your email"
-          />
-        </div>
+        <InputField
+          label="Email"
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Enter your email"
+        />
 
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-          />
-        </div>
+        <InputField
+          label="Password"
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Enter your password"
+        />
 
-        <div className="form-group">
-          <label htmlFor="confirmPassword">
-            Confirm Password
-          </label>
-          <input
-            type="password"
-            id="confirmPassword"
-            placeholder="Confirm your password"
-          />
-        </div>
+        <InputField
+          label="Confirm Password"
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          placeholder="Confirm your password"
+        />
 
         <div className="button-group">
           <button type="submit">Submit</button>
@@ -56,3 +52,4 @@ function App() {
 }
 
 export default App;
+
