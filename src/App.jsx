@@ -1,5 +1,6 @@
 
 import "./App.css";
+import InputField from "./components/InputField";
 
 function App() {
   return (
@@ -7,34 +8,32 @@ function App() {
       <h1>Registration Form</h1>
 
       <form>
-        <label htmlFor="name">Name</label>
-        <input
+        <InputField
+          label="Name"
           type="text"
           id="name"
           name="name"
           placeholder="Enter your name"
         />
 
-        <label htmlFor="email">Email</label>
-        <input
+        <InputField
+          label="Email"
           type="email"
           id="email"
           name="email"
           placeholder="Enter your email"
         />
 
-        <label htmlFor="password">Password</label>
-        <input
+        <InputField
+          label="Password"
           type="password"
           id="password"
           name="password"
           placeholder="Enter your password"
         />
 
-        <label htmlFor="confirmPassword">
-          Confirm Password
-        </label>
-        <input
+        <InputField
+          label="Confirm Password"
           type="password"
           id="confirmPassword"
           name="confirmPassword"
