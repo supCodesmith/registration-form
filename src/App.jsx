@@ -18,6 +18,15 @@ function App() {
     }));
   }
 
+  function handleReset() {
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
+  }
+
   return (
     <div className="form-container">
       <h1>Create Account</h1>
@@ -66,7 +75,7 @@ function App() {
 
         <div className="button-group">
           <button type="submit">Submit</button>
-          <button type="reset" className="reset-button">
+          <button type="button" className="reset-button" onClick={handleReset}>
             Reset
           </button>
         </div>
