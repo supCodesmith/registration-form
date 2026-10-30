@@ -1,4 +1,3 @@
-
 function InputField({
   label,
   type,
@@ -7,10 +6,20 @@ function InputField({
   placeholder,
   value,
   onChange,
+  onBlur,
+  error,
 }) {
   return (
-    <div className="form-group">
-      <label htmlFor={id}>{label}</label>
+    <div className="input-group">
+      <div className="input-label-row">
+        <label htmlFor={id}>{label}</label>
+        {error && (
+          <p className="error-message">
+            <span className="error-star">*</span> {error}
+          </p>
+        )}
+      </div>
+
       <input
         type={type}
         id={id}
@@ -18,6 +27,7 @@ function InputField({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
       />
     </div>
   );

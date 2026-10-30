@@ -30,8 +30,8 @@ p {
   text-align: center;
 }
 
-.form-group {
-  margin-bottom: 18px;
+.input-group {
+  margin-bottom: 22px;
 }
 
 label {
@@ -76,4 +76,29 @@ button {
 
 button:hover {
   opacity: 0.9;
+}
+
+
+
+.input-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3px;
+}
+
+.input-label-row label {
+  margin-bottom: 0;
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 11px;
+  text-align: right;
+  margin: 0;
+}
+
+.error-star {
+  color: red;
+  font-weight: bold;
 }

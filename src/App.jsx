@@ -9,6 +9,10 @@ function App() {
     confirmPassword: "",
   });
 
+  const [errors, setErrors] = useState({
+    name: "",
+  });
+
   function handleChange(event) {
     const { name, value } = event.target;
 
@@ -16,6 +20,24 @@ function App() {
       ...prevData,
       [name]: value,
     }));
+  }
+
+  function validateName(name) {
+    const trimmedName = name.trim();
+
+    if (trimmedName === "") {
+      return "Name is required";
+    }
+
+    if (trimmedName.length < 3) {
+      return "Name must contain at least 3 characters";
+    }
+
+    if (/\d/.test(trimmedName)) {
+      return "Name cannot contain numbers";
+    }
+
+    return "";
   }
 
   function handleReset() {
@@ -41,6 +63,13 @@ function App() {
           placeholder="Enter your name"
           value={formData.name}
           onChange={handleChange}
+          error={errors.name}
+          onBlur={() => {
+            setErrors((prev) => ({
+              ...prev,
+              name: validateName(formData.name),
+            }));
+          }}
         />
 
         <InputField
