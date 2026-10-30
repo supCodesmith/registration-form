@@ -20,6 +20,16 @@ function App() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  // Load previously registered users from localStorage.
+  const [users, setUsers] = useState(() => {
+    try {
+      const savedUsers = localStorage.getItem("registeredUsers");
+      return savedUsers ? JSON.parse(savedUsers) : [];
+    } catch {
+      return [];
+    }
+  });
+
   function handleChange(event) {
     const { name, value } = event.target;
 
@@ -136,6 +146,7 @@ function App() {
       return;
     }
 
+    // Create a user object without storing the password.
     const user = {
       id: crypto.randomUUID(),
       name: formData.name.trim(),
@@ -143,9 +154,23 @@ function App() {
       registeredAt: new Date().toISOString(),
     };
 
-    console.log("Registered user:", user);
+    // Add the new user to the existing list.
+    const updatedUsers = [...users, user];
 
-    setIsSubmitted(true);
+    // Save the updated list in localStorage.
+    try {
+      localStorage.setItem("registeredUsers", JSON.stringify(updatedUsers));
+
+      setUsers(updatedUsers);
+      console.log("Registered user:", user);
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error("Unable to save user:", error);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Unable to save registration. Please try again.",
+      }));
+    }
   }
 
   return (
