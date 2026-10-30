@@ -131,3 +131,11 @@ button:hover {
   color: #2563eb;
   opacity: 1;
 }
+
+.success-message {
+  color: #16a34a;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 16px;
+  text-align: center;
+}
