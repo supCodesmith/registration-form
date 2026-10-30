@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import InputField from "./components/InputField";
 
@@ -15,6 +16,10 @@ function App() {
     password: "",
     confirmPassword: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState(false);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -97,6 +102,32 @@ function App() {
       password: "",
       confirmPassword: "",
     });
+
+    setShowPassword(false);
+    setShowConfirmPassword(false);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const newErrors = {
+      name: validateName(formData.name),
+      email: validateEmail(formData.email),
+      password: validatePassword(formData.password),
+      confirmPassword: validateConfirmPassword(
+        formData.confirmPassword
+      ),
+    };
+
+    setErrors(newErrors);
+
+    const hasErrors = Object.values(newErrors).some(
+      (error) => error !== ""
+    );
+
+    if (!hasErrors) {
+      alert("Registration successful!");
+    }
   }
 
   return (
@@ -104,7 +135,7 @@ function App() {
       <h1>Create Account</h1>
       <p>Fill in your details to register.</p>
 
-      <form>
+      <form onSubmit={handleSubmit} noValidate>
         <InputField
           label="Name"
           type="text"
@@ -154,6 +185,10 @@ function App() {
               password: validatePassword(formData.password),
             }));
           }}
+          showPassword={showPassword}
+          onTogglePassword={() =>
+            setShowPassword((prev) => !prev)
+          }
         />
 
         <InputField
@@ -169,15 +204,24 @@ function App() {
             setErrors((prev) => ({
               ...prev,
               confirmPassword: validateConfirmPassword(
-                formData.confirmPassword,
+                formData.confirmPassword
               ),
             }));
           }}
+          showPassword={showConfirmPassword}
+          onTogglePassword={() =>
+            setShowConfirmPassword((prev) => !prev)
+          }
         />
 
         <div className="button-group">
           <button type="submit">Submit</button>
-          <button type="button" className="reset-button" onClick={handleReset}>
+
+          <button
+            type="button"
+            className="reset-button"
+            onClick={handleReset}
+          >
             Reset
           </button>
         </div>
