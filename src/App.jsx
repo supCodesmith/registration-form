@@ -28,7 +28,14 @@ function App() {
       ...prevData,
       [name]: value,
     }));
-  }
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+
+    setIsSubmitted(false);
+  } 
 
   function validateName(name) {
     const trimmedName = name.trim();
