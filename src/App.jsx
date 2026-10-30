@@ -11,6 +11,7 @@ function App() {
 
   const [errors, setErrors] = useState({
     name: "",
+    email: "",
   });
 
   function handleChange(event) {
@@ -40,6 +41,22 @@ function App() {
     return "";
   }
 
+  function validateEmail(email) {
+    const trimmedEmail = email.trim();
+
+    if (trimmedEmail === "") {
+      return "Email is required";
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(trimmedEmail)) {
+      return "Enter a valid email address";
+    }
+
+    return "";
+  }
+
   function handleReset() {
     setFormData({
       name: "",
@@ -47,8 +64,13 @@ function App() {
       password: "",
       confirmPassword: "",
     });
-  }
 
+    setErrors({
+      name: "",
+      email: "",
+    });
+  }
+  
   return (
     <div className="form-container">
       <h1>Create Account</h1>
@@ -80,6 +102,13 @@ function App() {
           placeholder="Enter your email"
           value={formData.email}
           onChange={handleChange}
+          error={errors.email}
+          onBlur={() => {
+            setErrors((prev) => ({
+              ...prev,
+              email: validateEmail(formData.email),
+            }));
+          }}
         />
 
         <InputField
