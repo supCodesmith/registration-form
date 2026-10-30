@@ -13,6 +13,7 @@ function App() {
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   function handleChange(event) {
@@ -70,6 +71,18 @@ function App() {
     return "";
   }
 
+  function validateConfirmPassword(confirmPassword) {
+    if (confirmPassword === "") {
+      return "Please confirm your password";
+    }
+
+    if (confirmPassword !== formData.password) {
+      return "Passwords do not match";
+    }
+
+    return "";
+  }
+
   function handleReset() {
     setFormData({
       name: "",
@@ -81,7 +94,8 @@ function App() {
     setErrors({
       name: "",
       email: "",
-      password: "", 
+      password: "",
+      confirmPassword: "",
     });
   }
 
@@ -150,6 +164,15 @@ function App() {
           placeholder="Confirm your password"
           value={formData.confirmPassword}
           onChange={handleChange}
+          error={errors.confirmPassword}
+          onBlur={() => {
+            setErrors((prev) => ({
+              ...prev,
+              confirmPassword: validateConfirmPassword(
+                formData.confirmPassword,
+              ),
+            }));
+          }}
         />
 
         <div className="button-group">
