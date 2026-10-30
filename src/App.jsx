@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import InputField from "./components/InputField";
 
@@ -17,8 +18,8 @@ function App() {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   function handleChange(event) {
@@ -35,12 +36,12 @@ function App() {
     }));
 
     setIsSubmitted(false);
-  } 
+  }
 
   function validateName(name) {
     const trimmedName = name.trim();
 
-    if (trimmedName === "") {
+    if (!trimmedName) {
       return "Name is required";
     }
 
@@ -58,7 +59,7 @@ function App() {
   function validateEmail(email) {
     const trimmedEmail = email.trim();
 
-    if (trimmedEmail === "") {
+    if (!trimmedEmail) {
       return "Email is required";
     }
 
@@ -72,7 +73,7 @@ function App() {
   }
 
   function validatePassword(password) {
-    if (password === "") {
+    if (!password) {
       return "Password is required";
     }
 
@@ -84,7 +85,7 @@ function App() {
   }
 
   function validateConfirmPassword(confirmPassword) {
-    if (confirmPassword === "") {
+    if (!confirmPassword) {
       return "Please confirm your password";
     }
 
@@ -112,24 +113,32 @@ function App() {
 
     setShowPassword(false);
     setShowConfirmPassword(false);
+    setIsSubmitted(false);
   }
 
   function handleSubmit(event) {
     event.preventDefault();
 
+    if (isSubmitted) {
+      return;
+    }
+
     const newErrors = {
       name: validateName(formData.name),
       email: validateEmail(formData.email),
       password: validatePassword(formData.password),
-      confirmPassword: validateConfirmPassword(formData.confirmPassword),
+      confirmPassword: validateConfirmPassword(
+        formData.confirmPassword
+      ),
     };
 
     setErrors(newErrors);
 
-    const hasErrors = Object.values(newErrors).some((error) => error !== "");
+    const hasErrors = Object.values(newErrors).some(
+      (error) => error !== ""
+    );
 
     if (hasErrors) {
-      setIsSubmitted(false);
       return;
     }
 
@@ -192,7 +201,9 @@ function App() {
             }));
           }}
           showPassword={showPassword}
-          onTogglePassword={() => setShowPassword((prev) => !prev)}
+          onTogglePassword={() =>
+            setShowPassword((prev) => !prev)
+          }
         />
 
         <InputField
@@ -208,24 +219,35 @@ function App() {
             setErrors((prev) => ({
               ...prev,
               confirmPassword: validateConfirmPassword(
-                formData.confirmPassword,
+                formData.confirmPassword
               ),
             }));
           }}
           showPassword={showConfirmPassword}
-          onTogglePassword={() => setShowConfirmPassword((prev) => !prev)}
+          onTogglePassword={() =>
+            setShowConfirmPassword((prev) => !prev)
+          }
         />
 
         <div className="button-group">
-          <button type="submit">Submit</button>
+          <button type="submit" disabled={isSubmitted}>
+            {isSubmitted ? "Submitted" : "Submit"}
+          </button>
 
-          <button type="button" className="reset-button" onClick={handleReset}>
+          <button
+            type="button"
+            className="reset-button"
+            onClick={handleReset}
+          >
             Reset
           </button>
         </div>
       </form>
+
       {isSubmitted && (
-        <p className="success-message">Registration successful!</p>
+        <p className="success-message">
+          Registration successful!
+        </p>
       )}
     </div>
   );
