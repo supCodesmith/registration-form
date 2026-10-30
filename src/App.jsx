@@ -12,6 +12,7 @@ function App() {
   const [errors, setErrors] = useState({
     name: "",
     email: "",
+    password: "",
   });
 
   function handleChange(event) {
@@ -57,6 +58,18 @@ function App() {
     return "";
   }
 
+  function validatePassword(password) {
+    if (password === "") {
+      return "Password is required";
+    }
+
+    if (password.length < 8) {
+      return "Password must contain at least 8 characters";
+    }
+
+    return "";
+  }
+
   function handleReset() {
     setFormData({
       name: "",
@@ -68,9 +81,10 @@ function App() {
     setErrors({
       name: "",
       email: "",
+      password: "", 
     });
   }
-  
+
   return (
     <div className="form-container">
       <h1>Create Account</h1>
@@ -119,6 +133,13 @@ function App() {
           placeholder="Enter your password"
           value={formData.password}
           onChange={handleChange}
+          error={errors.password}
+          onBlur={() => {
+            setErrors((prev) => ({
+              ...prev,
+              password: validatePassword(formData.password),
+            }));
+          }}
         />
 
         <InputField
